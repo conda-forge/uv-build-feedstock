@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: 0.6.17
+  maturin_version: '>=1.0,<2.0'
+
+package:
+  name: uv-build
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
+  sha256: 71225058950ba78d4bd9ac9412b12ae50874d09df13a6f1afbc777cba483a4d6
+
+build:
+  number: 0
+  # only build for the minimal python version
+  skip: not (match(python, python_min ~ '.*') and is_abi3 == 'true')
+  python:
+    version_independent: true
+  script:
+    file: build-uv-build
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - ${{ stdlib('c') }}
+    - cargo-bundle-licenses
+    - if: build_platform != target_platform
+      then:
+        - python
+        - maturin ${{ maturin_version }}
+        - cross-python_${{ target_platform }}
+  host:
+    - maturin ${{ maturin_version }}
+    - pip
+    - python
+    - python-abi3
+  run:
+    - python
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
+
+tests:
+  - python:
+      imports: uv_build
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - 3.13.*
+
+about:
+  summary: The uv build backend
+  license: Apache-2.0 AND MIT AND BSD-2-Clause
+  homepage: https://pypi.org/project/uv/
+  license_file:
+    - LICENSE-MIT
+    - LICENSE-APACHE
+    - crates/uv-pep440/License-Apache
+    - crates/uv-pep440/License-BSD
+    - crates/uv-build/LICENSE-MIT
+    - crates/uv-build/LICENSE-APACHE
+    - crates/uv-pep508/License-Apache
+    - crates/uv-pep508/License-BSD
+    - THIRDPARTY.yml
+
+extra:
+  recipe-maintainers:
+    - isuruf

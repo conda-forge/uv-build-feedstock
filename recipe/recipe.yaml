@@ -37,7 +37,9 @@ requirements:
     - maturin ${{ maturin_version }}
     - pip
     - python
-    - python-abi3
+    - if: is_abi3
+      then:
+        - python-abi3
   run:
     - python
   ignore_run_exports:

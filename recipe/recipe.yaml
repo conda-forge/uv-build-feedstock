@@ -1,0 +1,74 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: 0.8.4
+  maturin_version: '>=1.0,<2.0'
+
+package:
+  name: uv-build
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
+  sha256: 2b22a22fa4eadad5bf97a21643124b604515442836e99f036619059556220f3f
+
+build:
+  number: 0
+  # only build for the minimal python version
+  skip: not (match(python, python_min ~ '.*') and is_abi3)
+  python:
+    version_independent: ${{ is_abi3 }}
+  script:
+    file: build-uv-build
+    env:
+      # This env var specifies the base 2 log of the allocator page size
+      JEMALLOC_SYS_WITH_LG_PAGE: ${{ "16" if target_platform == "linux-aarch64" or target_platform == "linux-ppc64le" }}
+      # used in `build-uv-build.sh` to verity the expected version of rust
+      CBC_RUST_VERSION: ${{ rust_compiler_version | default(".*") }}
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ compiler('rust') }}
+    - ${{ stdlib('c') }}
+    - cargo-bundle-licenses
+    - if: build_platform != target_platform
+      then:
+        - python
+        - maturin ${{ maturin_version }}
+        - cross-python_${{ target_platform }}
+  host:
+    - maturin ${{ maturin_version }}
+    - pip
+    - python
+    - if: is_abi3
+      then:
+        - python-abi3
+  run:
+    - python
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
+
+tests:
+  - python:
+      imports: uv_build
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - 3.13.*
+
+about:
+  summary: The uv build backend
+  license: Apache-2.0 AND MIT AND BSD-2-Clause
+  homepage: https://pypi.org/project/uv/
+  license_file:
+    - LICENSE-*
+    - crates/*/License-*
+    - crates/*/License-*
+    - THIRDPARTY.yml
+
+extra:
+  recipe-maintainers:
+    - isuruf

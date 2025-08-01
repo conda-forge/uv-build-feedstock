@@ -1,5 +1,5 @@
 c_compiler:
-- vs2019
+- vs2022
 c_stdlib:
 - vs
 channel_sources:
@@ -18,5 +18,7 @@ python_min:
 - '3.9'
 rust_compiler:
 - rust
+rust_compiler_version:
+- '1.86'
 target_platform:
 - win-64

@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: 0.6.17
+  version: 0.8.4
   maturin_version: '>=1.0,<2.0'
 
 package:
@@ -11,16 +11,21 @@ package:
 
 source:
   url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
-  sha256: 71225058950ba78d4bd9ac9412b12ae50874d09df13a6f1afbc777cba483a4d6
+  sha256: 2b22a22fa4eadad5bf97a21643124b604515442836e99f036619059556220f3f
 
 build:
   number: 0
   # only build for the minimal python version
   skip: not (match(python, python_min ~ '.*') and is_abi3)
   python:
-    version_independent: true
+    version_independent: ${{ is_abi3 }}
   script:
     file: build-uv-build
+    env:
+      # This env var specifies the base 2 log of the allocator page size
+      JEMALLOC_SYS_WITH_LG_PAGE: ${{ "16" if target_platform == "linux-aarch64" or target_platform == "linux-ppc64le" }}
+      # used in `build-uv-build.sh` to verity the expected version of rust
+      CBC_RUST_VERSION: ${{ rust_compiler_version | default(".*") }}
 
 requirements:
   build:
@@ -59,14 +64,9 @@ about:
   license: Apache-2.0 AND MIT AND BSD-2-Clause
   homepage: https://pypi.org/project/uv/
   license_file:
-    - LICENSE-MIT
-    - LICENSE-APACHE
-    - crates/uv-pep440/License-Apache
-    - crates/uv-pep440/License-BSD
-    - crates/uv-build/LICENSE-MIT
-    - crates/uv-build/LICENSE-APACHE
-    - crates/uv-pep508/License-Apache
-    - crates/uv-pep508/License-BSD
+    - LICENSE-*
+    - crates/*/License-*
+    - crates/*/License-*
     - THIRDPARTY.yml
 
 extra:

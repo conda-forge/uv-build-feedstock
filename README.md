@@ -366,4 +366,5 @@ Feedstock Maintainers
 =====================
 
 * [@isuruf](https://github.com/isuruf/)
+* [@synapticarbors](https://github.com/synapticarbors/)
 

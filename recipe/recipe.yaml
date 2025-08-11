@@ -1,0 +1,60 @@
+schema_version: 1
+
+context:
+  name: uv_build
+  version: 0.7.22
+
+package:
+  name: uv-build
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/uv_build-${{ version }}.tar.gz
+  sha256: e7575036f987080a25a473971c0e6795c79e0b7bd04b95e5a35d5d51e19f3a6c
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler('c') }}
+    - ${{ stdlib('c') }}
+    - ${{ compiler('rust') }}
+    - cargo-bundle-licenses
+    - if: build_platform != target_platform
+      then:
+      - python
+      - maturin >=1.0,<2.0
+      - cross-python_${{ target_platform }}
+  host:
+    - python
+    - maturin >=1.0,<2.0
+    - pip
+  run:
+    - python
+
+tests:
+  - python:
+      imports:
+        - uv_build
+      pip_check: true
+
+about:
+  summary: The uv build backend
+  license: Apache-2.0 AND MIT AND BSD-2-Clause
+  license_file:
+    - LICENSE-MIT
+    - LICENSE-APACHE
+    - crates/uv-pep440/License-Apache
+    - crates/uv-pep440/License-BSD
+    - crates/uv-build/LICENSE-MIT
+    - crates/uv-build/LICENSE-APACHE
+    - crates/uv-pep508/License-Apache
+    - crates/uv-pep508/License-BSD
+    - THIRDPARTY.yml
+  homepage: https://pypi.org/project/uv/
+
+extra:
+  recipe-maintainers:
+    - isuruf
+    - synapticarbors

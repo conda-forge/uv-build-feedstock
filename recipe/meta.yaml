@@ -1,5 +1,5 @@
 {% set name = "uv_build" %}
-{% set version = "0.9.10" %}
+{% set version = "0.9.11" %}
 
 package:
   name: uv-build
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/uv_build-{{ version }}.tar.gz
-  sha256: c67e68c1fc7cbb37ba8754661c6a7b4f85953210657dc2cffed88ca86cce7c84
+  sha256: 21f62443e06cb1b6840c9cb3dba4b27bf0a74a010be5e9d86ea11691db87683e
 
 build:
   number: 0

@@ -17,8 +17,8 @@ source:
 
 build:
   number: 1
-  # only build for the minimal python version
-  skip: not (is_python_min and is_abi3)
+  # only build for the minimal python version(s)
+  skip: not ((is_python_min and is_abi3) or is_freethreading)
   python:
     version_independent: ${{ is_abi3 }}
   script:
@@ -40,12 +40,12 @@ requirements:
     - maturin >=${{ maturin_min }},<${{ maturin_max }}
     - pip
     - python
-    - python-abi3
+    - if: is_abi3
+      then:
+        - python-abi3
   run:
     - python
   ignore_run_exports:
-    by_name:
-      - python-gil
     from_package:
       - cross-python_${{ target_platform }}
 
@@ -60,12 +60,15 @@ tests:
         - python ${{ python_min }}.*
     script:
       - uv-build --help
-  - requirements:
-      run:
-        - python ${{ python_check_max }}.* *_*t
-    script:
-      - uv-build --help
-      - python -m uv_build --help
+  - if: |
+      "t" in python
+    then:
+      requirements:
+        run:
+          - python ${{ python_check_max }}.* *_*t
+      script:
+        - uv-build --help
+        - python -m uv_build --help
 
 about:
   summary: The uv build backend

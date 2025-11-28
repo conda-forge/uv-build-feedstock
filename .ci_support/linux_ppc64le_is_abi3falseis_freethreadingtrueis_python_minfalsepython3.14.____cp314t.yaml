@@ -17,11 +17,7 @@ is_abi3:
 is_freethreading:
 - true
 is_python_min:
-<<<<<<<< HEAD:.ci_support/linux_ppc64le_is_abi3falseis_freethreadingtrueis_python_minfalsepython3.14.____cp314t.yaml
 - false
-========
-- true
->>>>>>>> origin/0.6.17_hc8c195:.ci_support/linux_ppc64le_is_python_mintruepython3.9.____cpython.yaml
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -39,8 +35,5 @@ target_platform:
 zip_keys:
 - - python
   - is_python_min
-<<<<<<<< HEAD:.ci_support/linux_ppc64le_is_abi3falseis_freethreadingtrueis_python_minfalsepython3.14.____cp314t.yaml
   - is_freethreading
   - is_abi3
-========
->>>>>>>> origin/0.6.17_hc8c195:.ci_support/linux_ppc64le_is_python_mintruepython3.9.____cpython.yaml

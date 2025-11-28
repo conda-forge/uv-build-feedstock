@@ -19,11 +19,7 @@ is_abi3:
 is_freethreading:
 - true
 is_python_min:
-<<<<<<<< HEAD:.ci_support/osx_64_is_abi3falseis_freethreadingtrueis_python_minfalsepython3.14.____cp314t.yaml
 - false
-========
-- true
->>>>>>>> origin/0.6.17_hc8c195:.ci_support/osx_64_is_python_mintruepython3.9.____cpython.yaml
 macos_machine:
 - x86_64-apple-darwin13.4.0
 pin_run_as_build:
@@ -43,8 +39,5 @@ target_platform:
 zip_keys:
 - - python
   - is_python_min
-<<<<<<<< HEAD:.ci_support/osx_64_is_abi3falseis_freethreadingtrueis_python_minfalsepython3.14.____cp314t.yaml
   - is_freethreading
   - is_abi3
-========
->>>>>>>> origin/0.6.17_hc8c195:.ci_support/osx_64_is_python_mintruepython3.9.____cpython.yaml

@@ -15,3 +15,5 @@ github:
 shellcheck:
   enabled: true
 test: native_and_emulated
+bot:
+  automerge: true

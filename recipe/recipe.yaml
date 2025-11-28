@@ -2,8 +2,10 @@
 schema_version: 1
 
 context:
-  version: 0.8.9
-  maturin_version: '>=1.0,<2.0'
+  version: "0.9.13"
+  maturin_min: "1.0"
+  maturin_max: "2.0"
+  python_check_max: "3.14"
 
 package:
   name: uv-build
@@ -11,40 +13,33 @@ package:
 
 source:
   url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
-  sha256: 053b7c6537c7a0fea9d2e5b366562266365cacb1ea6869dfb41d5d733c39b330
+  sha256: 53c81cb51a24d1f274645c53716954d8b5387a03cfa13a967818af89d760a2c0
 
 build:
-  number: 0
+  number: 1
   # only build for the minimal python version
   skip: not (match(python, python_min ~ '.*') and is_abi3)
   python:
     version_independent: ${{ is_abi3 }}
   script:
     file: build-uv-build
-    env:
-      # This env var specifies the base 2 log of the allocator page size
-      JEMALLOC_SYS_WITH_LG_PAGE: ${{ "16" if target_platform == "linux-aarch64" or target_platform == "linux-ppc64le" }}
-      # used in `build-uv-build.sh` to verity the expected version of rust
-      CBC_RUST_VERSION: ${{ rust_compiler_version | default(".*") }}
 
 requirements:
   build:
-    - ${{ compiler('c') }}
-    - ${{ compiler('rust') }}
-    - ${{ stdlib('c') }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("rust") }}
+    - ${{ stdlib("c") }}
     - cargo-bundle-licenses
     - if: build_platform != target_platform
       then:
         - python
-        - maturin ${{ maturin_version }}
+        - maturin >=${{ maturin_min }},<${{ maturin_max }}
         - cross-python_${{ target_platform }}
   host:
-    - maturin ${{ maturin_version }}
+    - maturin >=${{ maturin_min }},<${{ maturin_max }}
     - pip
     - python
-    - if: is_abi3
-      then:
-        - python-abi3
+    - python-abi3
   run:
     - python
   ignore_run_exports:
@@ -57,7 +52,7 @@ tests:
       pip_check: true
       python_version:
         - ${{ python_min }}.*
-        - 3.13.*
+        - ${{ python_check_max }}.*
 
 about:
   summary: The uv build backend
@@ -66,9 +61,9 @@ about:
   license_file:
     - LICENSE-*
     - crates/*/License-*
-    - crates/*/License-*
     - THIRDPARTY.yml
 
 extra:
   recipe-maintainers:
     - isuruf
+    - conda-forge/uv

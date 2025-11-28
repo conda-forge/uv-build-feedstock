@@ -1,0 +1,70 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+schema_version: 1
+
+context:
+  version: "0.9.13"
+  maturin_min: "1.0"
+  maturin_max: "2.0"
+
+package:
+  name: uv-build
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
+  sha256: 53c81cb51a24d1f274645c53716954d8b5387a03cfa13a967818af89d760a2c0
+
+build:
+  number: 1
+  python:
+    version_independent: true
+  script:
+    - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+    - cargo-bundle-licenses --format=yaml --output=THIRDPARTY.yml
+
+requirements:
+  build:
+    - ${{ compiler("c") }}
+    - ${{ compiler("rust") }}
+    - ${{ stdlib("c") }}
+    - cargo-bundle-licenses
+    - if: build_platform != target_platform
+      then:
+        - python ${{ python_min ~ ".*" }}
+        - maturin >=${{ maturin_min }},<${{ maturin_max }}
+        - cross-python_${{ target_platform }}
+  host:
+    - maturin >=${{ maturin_min }},<${{ maturin_max }}
+    - pip
+    - python ${{ python_min ~ ".*" }}
+  run:
+    - python >=${{ python_min }}
+  ignore_run_exports:
+    from_package:
+      - cross-python_${{ target_platform }}
+
+tests:
+  - python:
+      imports: uv_build
+      pip_check: true
+      python_version:
+        - ${{ python_min }}.*
+        - "*"
+  - script:
+      - uv-build --help
+
+about:
+  summary: The uv build backend
+  license: Apache-2.0 AND MIT AND BSD-2-Clause
+  homepage: https://pypi.org/project/uv
+  license_file:
+    - LICENSE-*
+    - crates/*/License-*
+    - THIRDPARTY.yml
+  repository: https://github.com/astral-sh/uv
+  documentation: https://docs.astral.sh/uv/concepts/build-backend
+
+extra:
+  recipe-maintainers:
+    - isuruf
+    - conda-forge/uv

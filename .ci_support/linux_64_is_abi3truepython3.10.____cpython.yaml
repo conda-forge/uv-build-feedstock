@@ -27,4 +27,7 @@ rust_compiler:
 rust_compiler_version:
 - '1.89'
 target_platform:
-- linux-ppc64le
+- linux-64
+zip_keys:
+- - python
+  - is_abi3

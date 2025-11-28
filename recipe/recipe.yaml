@@ -44,6 +44,8 @@ requirements:
   run:
     - python
   ignore_run_exports:
+    by_name:
+      - python-gil
     from_package:
       - cross-python_${{ target_platform }}
 
@@ -53,7 +55,6 @@ tests:
       pip_check: true
       python_version:
         - ${{ python_min }}.*
-        - ${{ python_check_max }}.*
   - requirements:
       run:
         - python ${{ python_min }}.*
@@ -61,7 +62,7 @@ tests:
       - uv-build --help
   - requirements:
       run:
-        - python ${{ python_check_max }}.*t
+        - python ${{ python_check_max }}.* *_*t
     script:
       - uv-build --help
       - python -m uv_build --help

@@ -18,7 +18,7 @@ source:
 build:
   number: 1
   # only build for the minimal python version
-  skip: not (match(python, python_min ~ '.*') and is_abi3)
+  skip: not (is_python_min and is_abi3)
   python:
     version_independent: ${{ is_abi3 }}
   script:

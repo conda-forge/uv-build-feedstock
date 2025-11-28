@@ -50,25 +50,24 @@ requirements:
       - cross-python_${{ target_platform }}
 
 tests:
-  - python:
-      imports: uv_build
-      pip_check: true
-      python_version:
-        - ${{ python_min }}.*
+  - if: is_abi3
+    then:
+      python:
+        imports: uv_build
+        pip_check: true
+        python_version:
+          - ${{ python_min }}.*
+          - ${{ python_check_max }}.*
+  - if: is_freethreading
+    then:
+      - python:
+          imports: uv_build
+          pip_check: true
   - requirements:
       run:
-        - python ${{ python_min }}.*
+        - python ${{ python_min ~ ".*" if is_abi3 else "" }}
     script:
       - uv-build --help
-  - if: |
-      "t" in python
-    then:
-      requirements:
-        run:
-          - python ${{ python_check_max }}.* *_*t
-      script:
-        - uv-build --help
-        - python -m uv_build --help
 
 about:
   summary: The uv build backend

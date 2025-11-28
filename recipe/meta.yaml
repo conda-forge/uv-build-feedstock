@@ -10,7 +10,8 @@ source:
   sha256: 53c81cb51a24d1f274645c53716954d8b5387a03cfa13a967818af89d760a2c0
 
 build:
-  number: 0
+  number: 1
+  python_version_independent: true
 
 requirements:
   build:
@@ -18,15 +19,15 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('rust') }}
     - cargo-bundle-licenses
-    - python                                        # [build_platform != target_platform]
+    - python {{ python_min }}                       # [build_platform != target_platform]
     - maturin >=1.0,<2.0                            # [build_platform != target_platform]
     - cross-python_{{ target_platform }}            # [build_platform != target_platform]
   host:
-    - python
+    - python {{ python_min }}
     - maturin >=1.0,<2.0
     - pip
   run:
-    - python
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -35,6 +36,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://pypi.org/project/uv/

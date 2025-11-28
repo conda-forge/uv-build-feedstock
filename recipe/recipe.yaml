@@ -5,7 +5,6 @@ context:
   version: "0.9.13"
   maturin_min: "1.0"
   maturin_max: "2.0"
-  python_check_max: "3.14"
 
 package:
   name: uv-build
@@ -50,11 +49,8 @@ tests:
       pip_check: true
       python_version:
         - ${{ python_min }}.*
-        - ${{ python_check_max }}.*
-  - requirements:
-      run:
-        - python ${{ python_min ~ ".*" }} 
-    script:
+        - "*"
+  - script:
       - uv-build --help
 
 about:

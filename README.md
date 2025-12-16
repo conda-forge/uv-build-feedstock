@@ -203,4 +203,5 @@ Feedstock Maintainers
 
 * [@conda-forge/uv](https://github.com/orgs/conda-forge/teams/uv/)
 * [@isuruf](https://github.com/isuruf/)
+* [@zklaus](https://github.com/zklaus/)
 

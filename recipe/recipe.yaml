@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.9.20"
+  version: "0.9.21"
   maturin_min: "1.0"
   maturin_max: "2.0"
 
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
-  sha256: fc1f16ffd693d185ce1d5bf51214840a2fb1044f0f33c09baee64b7522e37813
+  sha256: ab571a962a016aca4128a1e14d772e62f8666cd2d7d93a8c6fdbd78ad743d20f
 
 build:
   number: 0

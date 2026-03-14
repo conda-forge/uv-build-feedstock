@@ -19,11 +19,9 @@ build:
   python:
     version_independent: true
   script:
-    env:
-      # Use the system linker instead of rust-lld on ppc64le to avoid
-      # "unknown relocation" errors when linking C code in zstd-sys.
-      CARGO_TARGET_POWERPC64LE_UNKNOWN_LINUX_GNU_LINKER: $CC
     content:
+      - if: target_platform == "linux-ppc64le"
+        then: export CARGO_BUILD_RUSTFLAGS="${CARGO_BUILD_RUSTFLAGS:-} -C link-arg=-fuse-ld=bfd"
       - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
       - cargo-bundle-licenses --format=yaml --output=THIRDPARTY.yml
 

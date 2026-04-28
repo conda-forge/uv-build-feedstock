@@ -3,7 +3,7 @@ About uv-build-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/uv-build-feedstock/blob/main/LICENSE.txt)
 
-Home: https://pypi.org/project/uv
+Home: https://pypi.org/project/uv-build
 
 Package license: Apache-2.0 AND MIT AND BSD-2-Clause
 

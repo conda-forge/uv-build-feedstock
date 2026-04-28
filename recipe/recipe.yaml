@@ -32,7 +32,7 @@ requirements:
     - ${{ stdlib("c") }}
     - cargo-bundle-licenses
   host:
-    - maturin >=${{ maturin_min }},<${{ maturin_max }}
+    - maturin >=1.0,<2.0
     - pip
     - python ${{ python_min }}.*
   run:

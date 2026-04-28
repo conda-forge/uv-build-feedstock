@@ -47,8 +47,7 @@ tests:
         - ${{ python_check_max }}.*
   - requirements:
       run:
-        - python ${{ python_check_max }}.*
-        - python-freethreading
+        - python ${{ python_min }}.*
     script:
       - uv-build --help
 

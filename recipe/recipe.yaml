@@ -14,7 +14,7 @@ source:
   sha256: 38298f1bfc8ea7eeaead0f4746f6310f8887e06db90a63d339043c19ea90fd40
 
 build:
-  number: 0
+  number: 1
   python:
     version_independent: true
   script:
@@ -27,6 +27,10 @@ build:
 
 requirements:
   build:
+    - if: build_platform != host_platform
+      then:
+        - python
+        - cross-python_${{ host_platform }}
     - ${{ compiler("c") }}
     - ${{ compiler("rust") }}
     - ${{ stdlib("c") }}

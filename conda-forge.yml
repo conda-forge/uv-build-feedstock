@@ -1,8 +1,6 @@
 bot:
   automerge: true
   inspection: hint-grayskull
-build_platform:
-  win_arm64: win_64
 conda_build:
   error_overlinking: true
 conda_build_tool: rattler-build
@@ -14,6 +12,7 @@ provider:
   linux_aarch64: default
   linux_ppc64le: default
   osx_arm64: default
+  win_arm64: default
 shellcheck:
   enabled: true
 test: native_and_emulated

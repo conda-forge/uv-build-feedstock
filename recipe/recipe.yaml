@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.12.5"
+  version: "0.12.6"
   python_check_max: "3.14"
 
 package:
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
-  sha256: 0fd12723392fcb697c6512e1cbdbd4e5d30af4702578700c472a6d1a0044c71c
+  sha256: 4756f1771d342ff8ff50b529ae23c58d58f14f097c243ca50d3778d0a23d24f0
 
 build:
   number: 0

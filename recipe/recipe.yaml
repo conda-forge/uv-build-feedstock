@@ -14,7 +14,7 @@ source:
   sha256: e04fe07cc9b6207a41e4971e04d85100edcd1be7fd9a6c889692f5092a9bd7cf
 
 build:
-  number: 0
+  number: 1
   python:
     version_independent: true
   script:

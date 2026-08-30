@@ -1,3 +1,5 @@
 # keep in sync with `Cargo.toml#/workspace/package/rust-version`
 rust_compiler_version:
-  - "1.96"
+  - if: linux and riscv64
+    then: "1.97"
+    else: "1.96"

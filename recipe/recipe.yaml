@@ -15,6 +15,7 @@ source:
 
 build:
   number: 1
+  skip: not is_python_min
   python:
     version_independent: true
   script:

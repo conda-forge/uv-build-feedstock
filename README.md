@@ -38,31 +38,17 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>osx_64_channel_sourcesconda-forge</td>
+              <td>osx_64_channel_sourcesconda-forgeis_python_mintrue</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25460&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forge" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forgeis_python_mintrue" alt="variant">
                 </a>
               </td>
             </tr><tr>
-              <td>osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc</td>
+              <td>osx_arm64_channel_sourcesconda-forgeis_python_mintrue</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25460&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_64_channel_sourcesconda-forgeconda-forgelabelpython_rc" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_channel_sourcesconda-forge</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25460&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_channel_sourcesconda-forge" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
-              <td>osx_arm64_channel_sourcesconda-forgeconda-forgelabelpython_rc</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=25460&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_channel_sourcesconda-forgeconda-forgelabelpython_rc" alt="variant">
+                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/uv-build-feedstock?branchName=main&jobName=osx&configuration=osx%20osx_arm64_channel_sourcesconda-forgeis_python_mintrue" alt="variant">
                 </a>
               </td>
             </tr>

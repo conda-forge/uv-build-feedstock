@@ -5,18 +5,23 @@ c_compiler_version:
 c_stdlib:
 - sysroot
 c_stdlib_version:
-- '2.17'
+- '2.39'
 channel_sources:
-- conda-forge,conda-forge/label/python_rc
+- conda-forge
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-aarch64:alma10
+- quay.io/condaforge/linux-anvil-x86_64:alma10
+is_python_min:
+- true
 python_min:
-- '3.11'
+- '3.14'
 rust_compiler:
 - rust
 rust_compiler_version:
-- '1.96'
+- '1.97'
 target_platform:
-- linux-aarch64
+- linux-riscv64
+zip_keys:
+- - is_python_min
+  - channel_sources

@@ -14,14 +14,22 @@ source:
   sha256: afd586089d301df068204cd4111817bd9d475eebdeab7ea329c3fb1a48b4fb7a
 
 build:
-  number: 0
+  number: 1
+  skip: not is_python_min
   python:
     version_independent: true
   script:
     env:
+      CARGO: cargo-auditable-wrapper.${{ "bat" if win else "sh" }}
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
     content:
+      - if: win
+        then:
+          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\"
+        else:
+          - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/"
+          - chmod 755 "${BUILD_PREFIX}/bin/cargo-auditable-wrapper.sh"
       - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
       - cargo-bundle-licenses --format=yaml --output=THIRDPARTY.yml
 
@@ -29,11 +37,12 @@ requirements:
   build:
     - if: build_platform != host_platform
       then:
-        - python
+        - python ${{ python_min }}.*
         - cross-python_${{ host_platform }}
     - ${{ compiler("c") }}
     - ${{ compiler("rust") }}
     - ${{ stdlib("c") }}
+    - cargo-auditable
     - cargo-bundle-licenses
   host:
     - maturin >=1.0,<2.0

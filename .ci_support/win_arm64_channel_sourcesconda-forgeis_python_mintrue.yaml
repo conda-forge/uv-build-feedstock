@@ -6,11 +6,16 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+is_python_min:
+- true
 python_min:
-- '3.11'
+- '3.14'
 rust_compiler:
 - rust
 rust_compiler_version:
 - '1.96'
 target_platform:
-- win-64
+- win-arm64
+zip_keys:
+- - is_python_min
+  - channel_sources

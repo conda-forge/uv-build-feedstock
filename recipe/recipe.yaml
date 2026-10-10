@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.12.24"
+  version: "0.13.0"
   python_check_max: "3.14"
 
 package:
@@ -10,8 +10,8 @@ package:
   version: ${{ version }}
 
 source:
-  url: https://files.pythonhosted.org/packages/f3/f7/f31669e9e536dfa91a835454df8b90fd359df57daf609294581f638b38c1/uv_build-${{ version }}.tar.gz
-  sha256: 7f67b18a83af209b66b1ec3d6ed565406dab2ebfee7bbe3598b541e7d39a5e5a
+  url: https://files.pythonhosted.org/packages/3e/2c/b18c631e647323c899891d8d994fbbdbe8054a18515344cb4cfd2f41c388/uv_build-${{ version }}.tar.gz
+  sha256: bd2614f24a58dccd4865d4f86ddd91dd01fd0efab4632e033186a8423b8a3515
 
 build:
   number: 0

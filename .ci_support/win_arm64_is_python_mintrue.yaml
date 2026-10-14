@@ -9,13 +9,10 @@ channel_targets:
 is_python_min:
 - true
 python_min:
-- '3.11'
+- '3.14'
 rust_compiler:
 - rust
 rust_compiler_version:
 - '1.97'
 target_platform:
-- win-64
-zip_keys:
-- - is_python_min
-  - channel_sources
+- win-arm64

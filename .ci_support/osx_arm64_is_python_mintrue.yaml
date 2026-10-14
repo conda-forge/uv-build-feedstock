@@ -26,6 +26,3 @@ rust_compiler_version:
 - '1.97'
 target_platform:
 - osx-arm64
-zip_keys:
-- - is_python_min
-  - channel_sources

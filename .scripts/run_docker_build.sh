@@ -110,6 +110,11 @@ fi
 export UPLOAD_PACKAGES="${UPLOAD_PACKAGES:-True}"
 export IS_PR_BUILD="${IS_PR_BUILD:-False}"
 
+# Select the ppc64le manifest when building under emulation.
+if [[ "${DOCKER_IMAGE}" == quay.io/condaforge/linux-anvil-ppc64le:* ]]; then
+    export DOCKER_DEFAULT_PLATFORM=linux/ppc64le
+fi
+
 ${DOCKER_EXECUTABLE} pull "${DOCKER_IMAGE}"
 
 ${DOCKER_EXECUTABLE} run ${DOCKER_RUN_ARGS} \

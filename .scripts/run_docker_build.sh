@@ -84,9 +84,9 @@ VOLUME_SUFFIX=",z"
 
 # Podman-specific handling
 if [ "${DOCKER_EXECUTABLE}" = "podman" ]; then
-    # Fix file permissions for rootless podman builds
-    podman unshare chown -R ${HOST_USER_ID}:${HOST_USER_ID} "${ARTIFACTS}"
-    podman unshare chown -R ${HOST_USER_ID}:${HOST_USER_ID} "${RECIPE_ROOT}"
+    # Fix file permissions for rootless podman builds. In addition to `recipe/`
+    # and `build_artifacts`, `.scripts` also needs to be available in the container.
+    podman unshare chown -R ${HOST_USER_ID}:${HOST_USER_ID} "${FEEDSTOCK_ROOT}"
 
     # Add SELinux label only if enforcing
     if command -v getenforce &>/dev/null && [ "$(getenforce)" = "Enforcing" ]; then
@@ -109,6 +109,11 @@ fi
 
 export UPLOAD_PACKAGES="${UPLOAD_PACKAGES:-True}"
 export IS_PR_BUILD="${IS_PR_BUILD:-False}"
+
+# Select the ppc64le manifest when building under emulation.
+if [[ "${DOCKER_IMAGE}" == quay.io/condaforge/linux-anvil-ppc64le:* ]]; then
+    export DOCKER_DEFAULT_PLATFORM=linux/ppc64le
+fi
 
 ${DOCKER_EXECUTABLE} pull "${DOCKER_IMAGE}"
 

@@ -2,16 +2,17 @@
 schema_version: 1
 
 context:
-  version: "0.13.8"
-  python_check_max: "3.14"
+  version: "0.13.9"
+  python_check_max: "3.15"
+  cargo_wrapper: cargo-auditable-wrapper.${{ "bat" if win else "sh" }}
 
 package:
   name: uv-build
   version: ${{ version }}
 
 source:
-  url: https://files.pythonhosted.org/packages/dc/49/6565260b6a14ee119bae2e17cedbee4cc6ae2810c580885a71fd23f0ed29/uv_build-${{ version }}.tar.gz
-  sha256: 038c16dc60d63c336cb5364000e11068c79dd0142682fbd4ae3e5470c11fddc5
+  url: https://files.pythonhosted.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
+  sha256: 3ae0466d17e38b82ed52d5201b5f265bbd782403b2e5a62cff244072af61a9fd
 
 build:
   number: 0
@@ -20,25 +21,25 @@ build:
     version_independent: true
   script:
     env:
-      CARGO: cargo-auditable-wrapper.${{ "bat" if win else "sh" }}
+      CARGO: ${{ cargo_wrapper }}
       CARGO_PROFILE_RELEASE_LTO: fat
       CARGO_PROFILE_RELEASE_STRIP: symbols
     content:
       - if: win
         then:
-          - copy "%RECIPE_DIR%\cargo-auditable-wrapper.bat" "%BUILD_PREFIX%\Library\bin\"
+          - copy "%RECIPE_DIR%\${{ cargo_wrapper }}" "%BUILD_PREFIX%\Library\bin\"
         else:
-          - cp "${RECIPE_DIR}/cargo-auditable-wrapper.sh" "${BUILD_PREFIX}/bin/"
-          - chmod 755 "${BUILD_PREFIX}/bin/cargo-auditable-wrapper.sh"
-      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check
+          - cp "${RECIPE_DIR}/${{ cargo_wrapper }}" "${BUILD_PREFIX}/bin/"
+          - chmod 755 "${BUILD_PREFIX}/bin/${{ cargo_wrapper }}"
+      - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation --disable-pip-version-check --check-build-dependencies
       - cargo-bundle-licenses --format=yaml --output=THIRDPARTY.yml
 
 requirements:
   build:
     - if: build_platform != host_platform
       then:
-        - python ${{ python_min }}.*
         - cross-python_${{ host_platform }}
+        - python ${{ python_min }}.*
     - ${{ compiler("c") }}
     - ${{ compiler("rust") }}
     - ${{ stdlib("c") }}
@@ -52,6 +53,13 @@ requirements:
     - python >=${{ python_min }}
 
 tests:
+  - package_contents:
+      strict: true
+      bin:
+        - uv-build
+      site_packages:
+        - uv_build/**
+        - uv_build-${{ version }}.dist-info/**
   - python:
       imports: uv_build
       pip_check: true

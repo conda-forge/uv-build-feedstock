@@ -55,8 +55,8 @@ requirements:
 tests:
   - package_contents:
       strict: true
-      bin:
-        - uv-build
+      files:
+        - python-scripts/uv-build*
       site_packages:
         - uv_build/**
         - uv_build-${{ version }}.dist-info/**

@@ -56,7 +56,7 @@ tests:
   - package_contents:
       strict: true
       files:
-        - python-scripts/uv-build*
+        - python-scripts/uv-build${{ ".exe" if win }}
       site_packages:
         - uv_build/**
         - uv_build-${{ version }}.dist-info/**

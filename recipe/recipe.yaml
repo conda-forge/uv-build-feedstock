@@ -2,7 +2,7 @@
 schema_version: 1
 
 context:
-  version: "0.13.9"
+  version: "0.13.10"
   python_check_max: "3.15"
   cargo_wrapper: cargo-auditable-wrapper.${{ "bat" if win else "sh" }}
 
@@ -12,7 +12,7 @@ package:
 
 source:
   url: https://files.pythonhosted.org/packages/source/u/uv-build/uv_build-${{ version }}.tar.gz
-  sha256: 3ae0466d17e38b82ed52d5201b5f265bbd782403b2e5a62cff244072af61a9fd
+  sha256: 29f3b0e3a636310a1e8d5eff66868f3b809f2756c533010cad3907754120d371
 
 build:
   number: 0
